@@ -31,22 +31,19 @@ int	ft_atoi(const char *nptr)
 	int		i;
 	long	num;
 	int		sign;
-	int		c;
 
 	i = 0;
 	num = 0;
 	sign = 1;
-	c = 0;
 	while ((nptr[i] >= 9 && nptr[i] <= 13) || nptr[i] == 32)
 		i++;
 	i = i + set_sign(nptr, &sign, i);
 	while (ft_isdigit(nptr[i]))
 	{
 		num = (num * 10) + (nptr[i] - '0');
-		c++;
+		if (num * sign > INT_MAX || num * sign < INT_MIN)
+			return (0);
 		i++;
 	}
-	if (num * sign > INT_MAX || num * sign < INT_MIN || c > 10)
-		return (0);
 	return ((int)num * sign);
 }
